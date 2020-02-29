@@ -1,0 +1,7 @@
+{
+    "netty-server-host" : "127.0.0.1",
+    "netty-server-port" : 9999,
+    "device-name": "device_1",
+    "device-describe": "设备 1 号",
+    "device-owner-id": 3
+}
