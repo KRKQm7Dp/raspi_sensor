@@ -3,7 +3,7 @@
 import RPi.GPIO as GPIO
 import time
  
-channel = 16			#引脚号16
+channel = 18			#引脚号16
 data = []			#温湿度值
 j = 0				#计数器
  
@@ -42,15 +42,18 @@ while j < 40:
  
 	j += 1
  
-print("sensor is working.")
-print(data)				#输出初始数据高低电平
+#print("sensor is working.")
+#print(data)				#输出初始数据高低电平
  
 humidity_bit = data[0:8]		#分组
 humidity_point_bit = data[8:16]
 temperature_bit = data[16:24]
 temperature_point_bit = data[24:32]
 check_bit = data[32:40]
- 
+
+print(humidity_bit)
+print(temperature_bit)
+
 humidity = 0
 humidity_point = 0
 temperature = 0
@@ -68,8 +71,8 @@ tmp = humidity + humidity_point + temperature + temperature_point		#十进制的
  
 if check == tmp:								#数据校验，相等则输出
 	print("temperature : ", temperature, ", humidity : " , humidity)
-else:										#错误输出错误信息，和校验数据
-	print("wrong")
-	print("temperature : ", temperature, ", humidity : " , humidity, " check : ", check, " tmp : ", tmp)
+#else:										#错误输出错误信息，和校验数据
+	#print("wrong")
+	#print("temperature : ", temperature, ", humidity : " , humidity, " check : ", check, " tmp : ", tmp)
  
 GPIO.cleanup()									#重置针脚

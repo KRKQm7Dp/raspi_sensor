@@ -4,6 +4,7 @@ import json
 import datetime
 import threading
 import time
+from dht11 import getTempHum
 
 # 从配置文件中读取信息
 f = open("./config.json", "r", encoding="UTF-8")
@@ -38,6 +39,20 @@ except socket.error as msg:
 
 def sendMsg():
     s.send(bytes(deviceInfo +'\n', "UTF-8"))
+    while True:
+        res = getTempHum()
+        if(res != None ):
+            tempHum = json.dumps({
+                'type': 2,
+                'data': {
+                    'temp': res[0],
+                    'humidity': res[1],
+                    'time': datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d %H:%M:%S'),
+                    'deviceId': 9
+                    }
+                })
+            s.send(bytes(tempHum+'\n', 'UTF-8'))
+        time.sleep(5)
 
 def recvMsg():
     while 1:
@@ -46,7 +61,7 @@ def recvMsg():
             print('if not data')
             s.close()
             break
-        print('aa',data.encode('utf-8'))
+        print('aa',data)
  
  
 if __name__ == '__main__':
