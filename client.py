@@ -16,6 +16,7 @@ port = config_dict['netty-server-port']
 deviceInfo = json.dumps({
     'type': 1,
     'data':{
+        'id': config_dict['device-id'],
         'name': config_dict['device-name'],
         'describe': config_dict['device-describe'],
         'status': True,
@@ -48,7 +49,7 @@ def sendMsg():
                     'temp': res[0],
                     'humidity': res[1],
                     'time': datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d %H:%M:%S'),
-                    'deviceId': 9
+                    'deviceId': config_dict['device-id']
                     }
                 })
             s.send(bytes(tempHum+'\n', 'UTF-8'))

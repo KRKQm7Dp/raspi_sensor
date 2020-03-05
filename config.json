@@ -3,5 +3,6 @@
     "netty-server-port" : 9999,
     "device-name": "device_1",
     "device-describe": "设备 1 号",
-    "device-owner-id": 3
+    "device-owner-id": 3,
+    "device-id": 36
 }
