@@ -1,7 +1,7 @@
 {
     "netty-server-host" : "192.168.137.1",
     "netty-server-port" : 9999,
-    "device-id": 36,
+    "device-id": 41,
     "device-owner-id": 3,
 
     "dth11-pin": 18,
