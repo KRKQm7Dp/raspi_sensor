@@ -17,8 +17,8 @@ deviceInfo = json.dumps({
     'type': 1,
     'data':{
         'id': config_dict['device-id'],
-        'name': config_dict['device-name'],
-        'describe': config_dict['device-describe'],
+        'name': '',
+        'describe': '',
         'status': True,
         'positionX': 126.627938,
         'positionY': 45.715051,

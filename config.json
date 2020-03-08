@@ -1,8 +1,12 @@
 {
     "netty-server-host" : "192.168.137.1",
     "netty-server-port" : 9999,
-    "device-name": "device_1",
-    "device-describe": "设备 1 号",
+    "device-id": 36,
     "device-owner-id": 3,
-    "device-id": 36
+
+    "dth11-pin": 18,
+    "relay-pin": 6,
+    "rgb-r-pin": 13,
+    "rgb-g-pin": 19,
+    "rgb-b-pin": 26
 }
