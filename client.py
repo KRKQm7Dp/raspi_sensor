@@ -62,10 +62,12 @@ def recvMsg():
             s.close()
             break
         else:
-            ctrl = json.loads(data)
-            print('ctrl=', ctrl)
-            if 'switch' in ctrl:
-                switch(ctrl['switch'])
+            ctrl = data.split('_')
+            if ctrl[0] == 'switch':
+                if ctrl[1] == '1':
+                    switch(True)
+                else:
+                    switch(False)
         print('aa',data)
  
  
