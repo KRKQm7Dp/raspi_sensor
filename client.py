@@ -5,6 +5,7 @@ import datetime
 import threading
 import time
 from dht11 import getTempHum
+from relay import switch
 
 # 从配置文件中读取信息
 f = open("./config.json", "r", encoding="UTF-8")
@@ -55,11 +56,16 @@ def sendMsg():
 
 def recvMsg():
     while 1:
-        data = s.recv(1024)
+        data = str(s.recv(1024), encoding='utf-8')
         if data == 'exit':
-            print('if not data')
+            print('查询无此设备，请检查 device-id 配置')
             s.close()
             break
+        else:
+            ctrl = json.loads(data)
+            print('ctrl=', ctrl)
+            if 'switch' in ctrl:
+                switch(ctrl['switch'])
         print('aa',data)
  
  
