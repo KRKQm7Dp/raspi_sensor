@@ -6,6 +6,7 @@ import threading
 import time
 from dht11 import getTempHum
 from relay import switch
+from rgb import rgb
 
 # 从配置文件中读取信息
 f = open("./config.json", "r", encoding="UTF-8")
@@ -57,6 +58,7 @@ def sendMsg():
 def recvMsg():
     while 1:
         data = str(s.recv(1024), encoding='utf-8')
+        print('aa',data)
         if data == 'exit':
             print('查询无此设备，请检查 device-id 配置')
             s.close()
@@ -68,7 +70,11 @@ def recvMsg():
                     switch(True)
                 else:
                     switch(False)
-        print('aa',data)
+            else if ctrl[0] == 'rgb':
+                pattern = re.compile(r'[(](.*?)[)]')
+                rgbStr =  pattern.findall(ctrl[1])
+                r,g,b = rgbStr.split(',')
+                rgb(r, g, b)
  
  
 if __name__ == '__main__':
