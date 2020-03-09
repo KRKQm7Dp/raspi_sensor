@@ -4,6 +4,7 @@ import json
 import datetime
 import threading
 import time
+import re
 from dht11 import getTempHum
 from relay import switch
 from rgb import rgb
@@ -70,10 +71,11 @@ def recvMsg():
                     switch(True)
                 else:
                     switch(False)
-            else if ctrl[0] == 'rgb':
+            elif ctrl[0] == 'rgb':
                 pattern = re.compile(r'[(](.*?)[)]')
                 rgbStr =  pattern.findall(ctrl[1])
-                r,g,b = rgbStr.split(',')
+                r,g,b = list(map(int, rgbStr[0].split(',')))
+                print("rgb=",r,g,b)
                 rgb(r, g, b)
  
  

@@ -5,8 +5,6 @@ import RPi.GPIO
 import time
 import json
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
 f = open("./config.json", "r", encoding="UTF-8")
 config_dict = json.load(f)
 R = config_dict['rgb-r-pin']
@@ -30,15 +28,16 @@ pwmG.start(0)
 pwmB.start(0)
 
 def rgb(r=0, g=100, b=100):
-    try:
-        pwmR.ChangeDutyCycle(r)
-        pwmG.ChangeDutyCycle(g)
-        pwmB.ChangeDutyCycle(b)
-    
-    except:
-        pwmR.stop()
-        pwmG.stop()
-        pwmB.stop()
-        RPi.GPIO.cleanup()
+    print('rgb=', r,g,b)
+    while True:
+        try:
+            pwmR.ChangeDutyCycle(r)
+            pwmG.ChangeDutyCycle(g)
+            pwmB.ChangeDutyCycle(b)
+        except:
+            pwmR.stop()
+            pwmG.stop()
+            pwmB.stop()
+            RPi.GPIO.cleanup()
  
 
