@@ -4,10 +4,11 @@
 import RPi.GPIO
 import time
 import json
+import threading
  
 class rgbThread(threading.Thread):
     def __init__(self, r, g, b):
-        super().__init__(self)
+        super().__init__()
         self.r = r
         self.g = g
         self.b = b
@@ -39,14 +40,11 @@ class rgbThread(threading.Thread):
         self.pwmR.stop()
         self.pwmG.stop()
         self.pwmB.stop()
-        self.RPi.GPIO.cleanup()
-
-    def rgb(self, r=0, g=100, b=100):
-        
+        RPi.GPIO.cleanup()
 
     def run(self):
-        print('rgb=', r,g,b)
-        while True:
+        print('rgb=', self.r,self.g,self.b)
+        while self.isRun:
             try:
                 self.pwmR.ChangeDutyCycle(self.r)
                 self.pwmG.ChangeDutyCycle(self.g)
@@ -55,7 +53,7 @@ class rgbThread(threading.Thread):
                 self.pwmR.stop()
                 self.pwmG.stop()
                 self.pwmB.stop()
-                self.RPi.GPIO.cleanup()
+                RPi.GPIO.cleanup()
     
     
 
