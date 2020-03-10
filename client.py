@@ -7,7 +7,7 @@ import time
 import re
 from dht11 import getTempHum
 from relay import switch
-from rgb import rgb
+from rgb import rgbThread
 
 # 从配置文件中读取信息
 f = open("./config.json", "r", encoding="UTF-8")
@@ -57,6 +57,8 @@ def sendMsg():
         time.sleep(5)
 
 def recvMsg():
+    rgb_thread = rgbThread(100, 0, 0)
+    rgb_thread.start()
     while 1:
         data = str(s.recv(1024), encoding='utf-8')
         print('aa',data)
@@ -72,11 +74,13 @@ def recvMsg():
                 else:
                     switch(False)
             elif ctrl[0] == 'rgb':
+                rgb_thread.stop()
                 pattern = re.compile(r'[(](.*?)[)]')
                 rgbStr =  pattern.findall(ctrl[1])
                 r,g,b = list(map(int, rgbStr[0].split(',')))
                 print("rgb=",r,g,b)
-                rgb(r, g, b)
+                rgb_thread = rgbThread(r, g, b)
+                rgb_thread.start()
  
  
 if __name__ == '__main__':
