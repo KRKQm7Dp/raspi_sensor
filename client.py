@@ -75,6 +75,7 @@ def recvMsg():
                     switch(False)
             elif ctrl[0] == 'rgb':
                 rgb_thread.stop()
+                rgb_thread = None
                 pattern = re.compile(r'[(](.*?)[)]')
                 rgbStr =  pattern.findall(ctrl[1])
                 r,g,b = list(map(int, rgbStr[0].split(',')))
