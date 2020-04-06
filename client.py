@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*
 #!/usr/bin/python3
 import socket
 import json
@@ -69,6 +70,7 @@ def recvMsg():
         else:
             ctrl = data.split('_')
             if ctrl[0] == 'switch':
+                print('switch')
                 if ctrl[1] == '1':
                     switch(True)
                 else:
@@ -80,6 +82,8 @@ def recvMsg():
                 rgbStr =  pattern.findall(ctrl[1])
                 r,g,b = list(map(int, rgbStr[0].split(',')))
                 print("rgb=",r,g,b)
+                time.sleep(0.5)
+                print('--------')
                 rgb_thread = rgbThread(r, g, b)
                 rgb_thread.start()
  

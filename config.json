@@ -1,5 +1,5 @@
 {
-    "netty-server-host" : "192.168.137.1",
+    "netty-server-host" : "39.107.125.189",
     "netty-server-port" : 9999,
     "device-id": 41,
     "device-owner-id": 3,

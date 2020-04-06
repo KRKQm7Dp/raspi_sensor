@@ -13,6 +13,7 @@ class rgbThread(threading.Thread):
         self.g = g
         self.b = b
         self.isRun = True
+        print('init rgb')
         f = open("./config.json", "r", encoding="UTF-8")
         config_dict = json.load(f)
         R = config_dict['rgb-r-pin']
@@ -37,13 +38,14 @@ class rgbThread(threading.Thread):
 
     def stop(self):
         self.isRun = False
+        print('rgbThread stopped',self.isRun)
         self.pwmR.stop()
         self.pwmG.stop()
         self.pwmB.stop()
-        RPi.GPIO.cleanup()
+        #RPi.GPIO.cleanup()
 
     def run(self):
-        print('rgb=', self.r,self.g,self.b)
+        print('rgbThread run=', self.r,self.g,self.b)
         while self.isRun:
             try:
                 self.pwmR.ChangeDutyCycle(self.r)
@@ -53,7 +55,7 @@ class rgbThread(threading.Thread):
                 self.pwmR.stop()
                 self.pwmG.stop()
                 self.pwmB.stop()
-                RPi.GPIO.cleanup()
+                #RPi.GPIO.cleanup()
     
     
 
