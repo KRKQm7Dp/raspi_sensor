@@ -87,6 +87,18 @@ while True:
     cmd = "cat /sys/class/thermal/thermal_zone0/temp |  awk '{printf \"CPU Temp: %.1f C\", $(NF-0) / 1000}'"  # pylint: disable=line-too-long
     Temp = subprocess.check_output(cmd, shell=True).decode("utf-8")
 
+    cmd = "ifconfig wlan0 | grep bytes | awk 'NR==1{print $5}'"
+    down_rate1 = int(subprocess.check_output(cmd, shell=True).decode("utf-8"))
+    cmd = "ifconfig wlan0 | grep bytes | awk 'NR==2{print $5}'"
+    up_rate1 = int(subprocess.check_output(cmd, shell=True).decode("utf-8"))
+    time.sleep(1)
+    cmd = "ifconfig wlan0 | grep bytes | awk 'NR==1{print $5}'"
+    down_rate2 = int(subprocess.check_output(cmd, shell=True).decode("utf-8"))
+    cmd = "ifconfig wlan0 | grep bytes | awk 'NR==2{print $5}'"
+    up_rate2 = int(subprocess.check_output(cmd, shell=True).decode("utf-8"))
+    up_rate = int((up_rate2-up_rate1)/1024)
+    down_rate = int((down_rate2-down_rate1)/1024)
+
     # Write four lines of text.
     y = padding
     draw.text((x, y), IP, font=font, fill="#FFFFFF")
@@ -98,6 +110,8 @@ while True:
     draw.text((x, y), Disk, font=font, fill="#0000FF")
     y += font.getsize(Disk)[1]
     draw.text((x, y), Temp, font=font, fill="#FF00FF")
+    y += font.getsize(Temp)[1]
+    draw.text((x, y), "↑/↓: " + str(up_rate) + "KB/s / " + str(down_rate)+ "KB/s", font=font, fill="#FFB6C1")
 
     # Display image.
     disp.image(image)
