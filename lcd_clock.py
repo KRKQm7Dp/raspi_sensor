@@ -1,5 +1,6 @@
 # _*_ coding: utf-8 _*_
 import time
+import datetime
 import math
 import subprocess
 import digitalio
@@ -71,6 +72,7 @@ x = 0
 # same directory as the python script!
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", FONTSIZE)
+font_large = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 53)
 
 def byteToHuman(b):
     s = ['b', 'kB', 'MB', 'GB', 'TB', 'PB']
@@ -111,19 +113,14 @@ while True:
 
     # Write four lines of text.
     y = padding
-    draw.text((x, y), IP, font=font, fill="#FFFFFF")
-    y += font.getsize(IP)[1]
-    draw.text((x, y), CPU, font=font, fill="#FFFF00")
-    y += font.getsize(CPU)[1]
-    draw.text((x, y), MemUsage, font=font, fill="#00FF00")
-    y += font.getsize(MemUsage)[1]
-    draw.text((x, y), Disk, font=font, fill="#0000FF")
-    y += font.getsize(Disk)[1]
-    draw.text((x, y), Temp, font=font, fill="#FF00FF")
-    y += font.getsize(Temp)[1]
-    draw.text((x, y), "↑/↓: " + byteToHuman(up_rate) + " / " + byteToHuman(down_rate), font=font, fill="#FFB6C1")
 
+    now_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    print(now_date)
+    now_time = datetime.datetime.now().strftime("%H:%M:%S")
+    print(now_time)
+    draw.text((x,y),now_date,font=font,fill="#FFFFFF")
+    draw.text((1,30),now_time,font=font_large,fill="#FFFFFF")
     # Display image.
     disp.image(image)
-    time.sleep(0.1)
+    time.sleep(0.05)
 

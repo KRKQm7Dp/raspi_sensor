@@ -9,9 +9,8 @@ def getTempHum():
         # Print the values to the serial port
         temperature_c = "%.1f" % dhtDevice.temperature
         humidity = dhtDevice.humidity
-        print("{} C,{}% "
+        return str("{} C,{}% "
                 .format(temperature_c, humidity))
-        return (temperature_c, humidity)
 
     except RuntimeError as error:
         # Errors happen fairly often, DHT's are hard to read, just keep going
